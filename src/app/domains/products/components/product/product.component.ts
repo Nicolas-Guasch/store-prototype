@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-product',
@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
-  img = 'https://picsum.photos/640/640?r=' + Math.random();
+  img = input.required<string>();
+  price = input.required<number>();
+  title = input.required<string>();
+
+  addToCart = output<string>();
+
+  addToCartHandler() {
+    console.log('click from child');
+    this.addToCart.emit('Message from child');
+  }
 }

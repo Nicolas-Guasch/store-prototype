@@ -1,5 +1,6 @@
 <div>
-  <img [src]="img" alt="Product image" />
-  <h3>Producto 1</h3>
-  <p>$3000</p>
+  <img [src]="img()" alt="Product image" />
+  <h3>{{ title() }}</h3>
+  <p>${{ price() }}</p>
+  <button (click)="addToCartHandler()">Add to cart</button>
 </div>
