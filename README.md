@@ -1,5 +1,9 @@
 # Store
 
+E-commerce website developed following Platzi's [Angular course](https://platzi.com/cursos/angular/).
+
+This project styling was built with the aid of the [tailwindcss](https://tailwindcss.com/) framework.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
 
 ## Development server
