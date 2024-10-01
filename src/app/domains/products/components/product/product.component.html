@@ -1,14 +1,17 @@
 <div class="group rounded-lg border">
   <a href="#" class="w-full overflow-hidden rounded-t-lg bg-gray-200">
     <img
-      [src]="img()"
-      [alt]="title()"
+      [src]="product().image"
+      [alt]="product().title"
       class="h-full w-full object-cover object-center group-hover:opacity-75"
     />
   </a>
   <div class="flex flex-col space-y-2 p-4">
-    <h3 class="text-sm text-gray-700">{{ title() }}</h3>
-    <p class="text-lg font-medium text-gray-900">${{ price() }}.00</p>
+    <h3 class="text-sm text-gray-700">{{ product().title }}</h3>
+    <p class="text-lg font-medium text-gray-900">${{ product().price }}.00</p>
+    <p class="text-lg font-light italic text-gray-900">
+      Published on {{ parseDate(product().publishedOn) }}
+    </p>
     <button
       class="text-black bg-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 w-full"
       (click)="addToCartHandler()"
