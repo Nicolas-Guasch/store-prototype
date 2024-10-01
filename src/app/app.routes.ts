@@ -5,11 +5,12 @@ import { AboutComponent } from './domains/info/pages/about/about.component';
 
 export const routes: Routes = [
   {
-    path: '',
-    component: ListComponent,
-  },
-  {
     path: 'about',
     component: AboutComponent,
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    component: ListComponent,
   },
 ];
