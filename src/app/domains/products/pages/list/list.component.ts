@@ -13,6 +13,7 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
 })
 export class ListComponent {
   products = signal<Product[]>([]);
+  cart = signal<Product[]>([]);
 
   constructor() {
     const templateProduct: Product = {
@@ -40,8 +41,7 @@ export class ListComponent {
     this.products.set(defaultProducts);
   }
 
-  fromChild(event: string) {
-    console.log('Parent receiving...');
-    console.log(`child sent: ${event}`);
+  addToCart(product: Product) {
+    this.cart.update((prevState) => [...prevState, product]);
   }
 }

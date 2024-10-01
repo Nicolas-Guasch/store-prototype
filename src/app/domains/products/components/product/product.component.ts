@@ -12,11 +12,10 @@ import { Product } from '../../../shared/components/counter/models/product.model
 export class ProductComponent {
   product = input.required<Product>();
 
-  addToCart = output<string>();
+  addToCart = output<Product>();
 
   addToCartHandler() {
-    console.log('click from child');
-    this.addToCart.emit('Message from child');
+    this.addToCart.emit(this.product());
   }
 
   parseDate(ISODate: string): string {

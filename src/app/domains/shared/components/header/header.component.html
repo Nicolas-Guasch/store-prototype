@@ -1,17 +1,24 @@
 <nav>
   <div class="flex flex-wrap items-center justify-between mx-auto py-4">
     <div class="flex items-center space-x-8">
-      <a href="https://flowbite.com/" class="flex items-center">
-        <img
-          src="https://flowbite.com/docs/images/logo.svg"
-          class="h-6 mr-3"
-          alt="Flowbite Logo"
-        />
-        <span class="self-center text-xl font-semibold whitespace-nowrap"
-          >Flowbite</span
+      <div class="flex items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          class="bi bi-shop"
+          viewBox="0 0 16 16"
         >
-      </a>
-      <ul class="flex space-x-6">
+          <path
+            d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z"
+          />
+        </svg>
+        <span class="self-center text-xl font-semibold whitespace-nowrap pl-2"
+          >Tiny Commerce</span
+        >
+      </div>
+      <ul class="flex space-x-2 sm:space-x-6">
         <li>
           <a
             href="#"
@@ -21,15 +28,17 @@
           >
         </li>
         <li>
-          <a href="about" class="block hover:underline">About</a>
-        </li>
-        <li>
-          <a href="#" class="block hover:underline">Services</a>
+          <a href="/about" class="block hover:underline">About</a>
         </li>
       </ul>
     </div>
     <div class="flex items-center">
-      <button class="px-4" (click)="toggleSideMenu()">
+      <button class="p-2 border rounded relative" (click)="toggleSideMenu()">
+        <div
+          class="absolute -top-2 -left-2 rounded h-5 w-5 bg-black text-white text-xs"
+        >
+          {{ cart().length }}
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -49,6 +58,7 @@
   </div>
 </nav>
 
+<!--SHOPPING CART-->
 <div
   class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-white"
   [class.translate-x-full]="sideMenuHidden()"
@@ -71,5 +81,11 @@
         />
       </svg>
     </button>
+  </div>
+  <div>
+    @for (product of cart(); track product.id) {
+      <p>{{ product.title }}</p>
+      <p>{{ product.price }}</p>
+    }
   </div>
 </div>
