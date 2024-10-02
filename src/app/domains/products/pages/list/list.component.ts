@@ -39,9 +39,19 @@ export class ListComponent {
     }
 
     this.products.set(defaultProducts);
+    this.cart.set([this.products()[0], this.products()[1], this.products()[2]]);
   }
 
   addToCart(product: Product) {
     this.cart.update((prevState) => [...prevState, product]);
+  }
+
+  removeCartItem(index: number) {
+    this.cart.update((prevState) => {
+      return prevState.filter((product, pos) => pos != index);
+    });
+  }
+  clearCart() {
+    this.cart.set([]);
   }
 }

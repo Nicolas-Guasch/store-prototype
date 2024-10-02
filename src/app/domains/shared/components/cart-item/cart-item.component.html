@@ -1,0 +1,22 @@
+<div
+  class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100"
+>
+  <img
+    class="object-cover h-24 rounded-t-lg md:rounded-none md:rounded-s-lg"
+    [src]="product().image"
+  />
+  <div class="grow shrink-0 flex flex-col justify-between px-4 leading-normal">
+    <div class="text-xl font-semibold tracking-tight text-gray-900">
+      {{ product().title }}
+    </div>
+    <div class="self-end font-normal text-gray-700">
+      ${{ product().price }}.00
+    </div>
+    <button
+      class="self-end pb-2 underline font-light"
+      (click)="removeItem.emit(index())"
+    >
+      remove
+    </button>
+  </div>
+</div>
