@@ -83,6 +83,9 @@
     </button>
   </div>
   <div class="mt-6">
+    @if (cart().length == 0) {
+      Your cart is empty.
+    }
     @for (product of cart(); track product.id) {
       <app-cart-item
         [product]="product"
@@ -93,13 +96,16 @@
   </div>
   <div class="text-right font-bold mt-2">Cart Total: ${{ cartTotal() }}.00</div>
   <button
-    class="text-black bg-gray-200 font-medium rounded-lg text-lg px-5 py-2.5 my-3 w-full"
+    class="text-black bg-gray-200 font-medium rounded-lg text-lg px-5 py-2.5 my-3 w-full disabled:text-gray-500 disabled:bg-gray-50"
+    [disabled]="cart().length == 0"
   >
     Continue to payment
   </button>
-  <div class="w-full flex flex-row-reverse">
-    <button class="underline font-light mt-2" (click)="clearCart.emit()">
-      Remove all items
-    </button>
-  </div>
+  @if (cart().length > 0) {
+    <div class="w-full flex flex-row-reverse">
+      <button class="underline font-light mt-2" (click)="clearCart.emit()">
+        Remove all items
+      </button>
+    </div>
+  }
 </div>
