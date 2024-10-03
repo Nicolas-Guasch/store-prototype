@@ -1,5 +1,6 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Product } from '../counter/models/product.model';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -11,5 +12,9 @@ import { Product } from '../counter/models/product.model';
 export class CartItemComponent {
   index = input.required<number>();
   product = input.required<Product>();
-  removeItem = output<number>();
+  private cartService = inject(CartService);
+
+  removeItem(index: number): void {
+    this.cartService.removeCartItem(index);
+  }
 }

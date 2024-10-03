@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 
 import { Product } from '../../../shared/components/counter/models/product.model';
 
@@ -11,14 +11,16 @@ import { Product } from '../../../shared/components/counter/models/product.model
 })
 export class ProductComponent {
   product = input.required<Product>();
-
+  parseDate = computed<string>(() => {
+    return new Date(this.product().publishedOn)
+      .toDateString()
+      .split(' ')
+      .slice(1)
+      .join(' ');
+  });
   addToCart = output<Product>();
 
   addToCartHandler() {
     this.addToCart.emit(this.product());
-  }
-
-  parseDate(ISODate: string): string {
-    return new Date(ISODate).toDateString().split(' ').slice(1).join(' ');
   }
 }

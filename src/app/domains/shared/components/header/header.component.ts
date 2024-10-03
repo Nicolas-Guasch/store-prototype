@@ -1,7 +1,7 @@
-import { Component, computed, input, output, signal } from '@angular/core';
-import { Product } from '../counter/models/product.model';
+import { Component, inject, signal } from '@angular/core';
 import { CartItemComponent } from '../cart-item/cart-item.component';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +12,16 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent {
   sideMenuHidden = signal(true);
-  cart = input<Product[]>([]);
-  removeItem = output<number>();
-  clearCart = output<void>();
-  cartTotal = computed<number>(() =>
-    this.cart().reduce((sum, product) => sum + product.price, 0),
-  );
+
+  private cartService = inject(CartService);
+  cart = this.cartService.cart;
+  cartTotal = this.cartService.cartTotal;
 
   toggleSideMenu() {
     this.sideMenuHidden.update((prevState) => !prevState);
+  }
+
+  clearCart() {
+    this.cartService.clearCart();
   }
 }
