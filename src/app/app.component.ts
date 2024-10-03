@@ -1,21 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { HeaderComponent } from './domains/shared/components/header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  template: ` <nav class="hidden">
-      <ul>
-        <li>
-          <a routerLink="" routerLinkActive="active">Home</a>
-        </li>
-        <li>
-          <a routerLink="about" routerLinkActive="active">About</a>
-        </li>
-      </ul>
-    </nav>
-    <router-outlet />`,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, HeaderComponent],
+  templateUrl: 'app.component.html',
+  styles: ``,
 })
 export class AppComponent {
   title = 'store';
