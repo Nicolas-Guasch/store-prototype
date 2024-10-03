@@ -1,6 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 
-import { Product } from '../../../shared/components/counter/models/product.model';
+import { Product } from '../../../shared/components/models/product.model';
 
 @Component({
   selector: 'app-product',

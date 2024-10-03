@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ProductComponent } from '../../components/product/product.component';
 
-import { Product } from '../../../shared/components/counter/models/product.model';
+import { Product } from '../../../shared/components/models/product.model';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { CartService } from '../../../shared/services/cart.service';
 
