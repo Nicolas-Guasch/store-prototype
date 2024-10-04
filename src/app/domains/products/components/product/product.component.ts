@@ -1,23 +1,17 @@
 import { Component, computed, input, output } from '@angular/core';
+import { UpperCasePipe, CurrencyPipe, DatePipe } from '@angular/common';
 
 import { Product } from '@shared/models/product.model';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [],
+  imports: [UpperCasePipe, CurrencyPipe, DatePipe],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
   product = input.required<Product>();
-  parseDate = computed<string>(() => {
-    return new Date(this.product().publishedOn!)
-      .toDateString()
-      .split(' ')
-      .slice(1)
-      .join(' ');
-  });
   addToCart = output<Product>();
 
   addToCartHandler() {

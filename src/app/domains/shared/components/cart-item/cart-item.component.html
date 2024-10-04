@@ -9,10 +9,10 @@
     <div
       class="text-xl line-clamp-2 hover:line-clamp-4 font-semibold tracking-tight leading-tight text-gray-900"
     >
-      {{ product().title }}
+      {{ product().title | uppercase }}
     </div>
     <div class="self-end font-normal text-gray-700">
-      ${{ product().price }}.00
+      {{ product().price | currency: "USD" : "symbol" : "1.2" }}
     </div>
     <button
       class="self-end pb-2 underline font-light"
