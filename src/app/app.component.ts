@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { HeaderComponent } from './domains/shared/components/header/header.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
 
 @Component({
   selector: 'app-root',

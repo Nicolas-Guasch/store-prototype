@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import { CartItemComponent } from '../cart-item/cart-item.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CartService } from '../../services/cart.service';
+import { CartItemComponent } from '@shared/components/cart-item/cart-item.component';
+import { CartService } from '@shared/services/cart.service';
 
 @Component({
   selector: 'app-header',

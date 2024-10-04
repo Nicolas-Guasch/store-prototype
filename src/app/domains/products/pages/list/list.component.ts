@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
-import { ProductComponent } from '../../components/product/product.component';
+import { Component, effect, inject, signal } from '@angular/core';
+import { ProductComponent } from '@products/components/product/product.component';
 
-import { Product } from '../../../shared/components/models/product.model';
-import { HeaderComponent } from '../../../shared/components/header/header.component';
-import { CartService } from '../../../shared/services/cart.service';
+import { Product } from '@shared/models/product.model';
+import { HeaderComponent } from '@shared/components/header/header.component';
+import { CartService } from '@shared/services/cart.service';
+import { ProductService } from '@shared/services/product.service';
 
 @Component({
   selector: 'app-list',
@@ -15,31 +16,30 @@ import { CartService } from '../../../shared/services/cart.service';
 export class ListComponent {
   products = signal<Product[]>([]);
   private cartService = inject(CartService);
+  private productService = inject(ProductService);
 
   constructor() {
-    const templateProduct: Product = {
-      id: Date.now(),
-      title: 'Product',
-      price: 100,
-      image: 'https://picsum.photos/640/640?r=',
-      publishedOn: new Date().toISOString(),
-    };
-    let test = new Date(templateProduct.publishedOn);
-    console.log(test.toDateString());
+    effect(
+      () => {
+        const products = this.products();
+        console.log(products);
+        if (products.length >= 3) {
+          this.addToCart(products[0]);
+          this.addToCart(products[1]);
+          this.addToCart(products[2]);
+        }
+      },
+      { allowSignalWrites: true },
+    );
+  }
 
-    const defaultAmount = 12;
-    let defaultProducts: Product[] = [];
-    for (let i = 1; i <= defaultAmount; i++) {
-      defaultProducts.push({
-        id: templateProduct.id + i,
-        title: templateProduct.title + ' ' + i,
-        price: Math.trunc(Math.random() * 1000),
-        image: templateProduct.image + i,
-        publishedOn: new Date().toISOString(),
-      });
-    }
-
-    this.products.set(defaultProducts);
+  ngOnInit() {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products.set(products);
+      },
+      error: () => {},
+    });
   }
 
   addToCart(product: Product) {

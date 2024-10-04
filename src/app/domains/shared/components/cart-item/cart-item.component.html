@@ -1,12 +1,14 @@
 <div
-  class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100"
+  class="container flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100"
 >
   <img
-    class="object-cover h-24 rounded-t-lg md:rounded-none md:rounded-s-lg"
-    [src]="product().image"
+    class="object-cover h-28 rounded-t-lg md:rounded-none md:rounded-s-lg"
+    [src]="product().images[0]"
   />
-  <div class="grow shrink-0 flex flex-col justify-between px-4 leading-normal">
-    <div class="text-xl font-semibold tracking-tight text-gray-900">
+  <div class="grow flex flex-col justify-between px-4 leading-normal">
+    <div
+      class="text-xl line-clamp-2 hover:line-clamp-4 font-semibold tracking-tight leading-tight text-gray-900"
+    >
       {{ product().title }}
     </div>
     <div class="self-end font-normal text-gray-700">

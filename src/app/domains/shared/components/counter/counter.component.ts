@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  input,
-  signal,
-  SimpleChange,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
 @Component({

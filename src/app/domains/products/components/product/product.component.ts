@@ -1,6 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 
-import { Product } from '../../../shared/components/models/product.model';
+import { Product } from '@shared/models/product.model';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +12,7 @@ import { Product } from '../../../shared/components/models/product.model';
 export class ProductComponent {
   product = input.required<Product>();
   parseDate = computed<string>(() => {
-    return new Date(this.product().publishedOn)
+    return new Date(this.product().publishedOn!)
       .toDateString()
       .split(' ')
       .slice(1)
