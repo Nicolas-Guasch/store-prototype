@@ -5,6 +5,7 @@ import { Product } from '@shared/models/product.model';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
+import { SanitizeService } from '@shared/services/sanitize.service';
 
 @Component({
   selector: 'app-list',
@@ -17,26 +18,12 @@ export class ListComponent {
   products = signal<Product[]>([]);
   private cartService = inject(CartService);
   private productService = inject(ProductService);
-
-  constructor() {
-    effect(
-      () => {
-        const products = this.products();
-        console.log(products);
-        if (products.length >= 3) {
-          this.addToCart(products[0]);
-          this.addToCart(products[1]);
-          this.addToCart(products[2]);
-        }
-      },
-      { allowSignalWrites: true },
-    );
-  }
+  private sanitizeService = inject(SanitizeService);
 
   ngOnInit() {
     this.productService.getProducts().subscribe({
       next: (products) => {
-        this.products.set(products);
+        this.products.set(this.sanitizeService.fixFormat(products));
       },
       error: () => {},
     });
