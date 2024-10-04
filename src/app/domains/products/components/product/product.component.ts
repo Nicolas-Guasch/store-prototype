@@ -1,12 +1,13 @@
 import { Component, computed, input, output } from '@angular/core';
 import { UpperCasePipe, CurrencyPipe, DatePipe } from '@angular/common';
+import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
 
 import { Product } from '@shared/models/product.model';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [UpperCasePipe, CurrencyPipe, DatePipe],
+  imports: [UpperCasePipe, CurrencyPipe, DatePipe, TimeAgoPipe],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
