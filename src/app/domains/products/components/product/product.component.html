@@ -1,5 +1,8 @@
 <div class="group rounded-lg border">
-  <a href="#" class="w-full overflow-hidden rounded-t-lg text-xs bg-gray-200">
+  <a
+    [routerLink]="['/product', product().id]"
+    class="w-full overflow-hidden rounded-t-lg text-xs bg-gray-200"
+  >
     <img
       [src]="product().images[0]"
       [alt]="product().title"
