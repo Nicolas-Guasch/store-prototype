@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-
-import { ListComponent } from './domains/products/pages/list/list.component';
-import { ProductDetailsComponent } from '@products/pages/product-details/product-details.component';
-import { AboutComponent } from './domains/info/pages/about/about.component';
-import { NotFoundComponent } from '@info/pages/not-found/not-found.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 
 export const routes: Routes = [
@@ -13,21 +8,22 @@ export const routes: Routes = [
     children: [
       {
         path: 'about',
-        component: AboutComponent,
+        loadComponent: () => import('@info/pages/about/about.component'),
       },
       {
         path: 'product/:id',
-        component: ProductDetailsComponent,
+        loadComponent: () =>
+          import('@products/pages/product-details/product-details.component'),
       },
       {
         path: '',
         pathMatch: 'full',
-        component: ListComponent,
+        loadComponent: () => import('@products/pages/list/list.component'),
       },
     ],
   },
   {
     path: '**',
-    component: NotFoundComponent,
+    loadComponent: () => import('@info/pages/not-found/not-found.component'),
   },
 ];

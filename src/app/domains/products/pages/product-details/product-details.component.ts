@@ -11,7 +11,7 @@ import { CurrencyPipe, UpperCasePipe } from '@angular/common';
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
 })
-export class ProductDetailsComponent {
+export default class ProductDetailsComponent {
   id? = input<string>();
   private productService = inject(ProductService);
   private cartService = inject(CartService);
@@ -22,7 +22,6 @@ export class ProductDetailsComponent {
     if (this.id) {
       this.productService.getSingleProduct(this.id()!).subscribe({
         next: (product) => {
-          console.log(product);
           this.product.set(product);
           if (product.images.length > 0) {
             this.cover.set(product.images[0]);
