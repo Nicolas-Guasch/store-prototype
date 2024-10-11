@@ -1,4 +1,13 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  Injector,
+  input,
+  runInInjectionContext,
+  Signal,
+  signal,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProductComponent } from '@products/components/product/product.component';
 import { Product } from '@shared/models/product.model';
@@ -8,6 +17,8 @@ import { ProductService } from '@shared/services/product.service';
 import { SanitizeService } from '@shared/services/sanitize.service';
 import { CategoryService } from '@shared/services/category.service';
 import { Category } from '@shared/models/category.model';
+import { Observable } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-list',
@@ -17,43 +28,37 @@ import { Category } from '@shared/models/category.model';
   styleUrl: './list.component.css',
 })
 export default class ListComponent {
-  products = signal<Product[]>([]);
-  categories = signal<Category[]>([]);
   private cartService = inject(CartService);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
   private sanitizeService = inject(SanitizeService);
   category_id? = input<string>();
+  products!: Signal<Product[]>;
+  categories: Signal<Category[]> = toSignal(this.getCategories()) as Signal<
+    Category[]
+  >;
 
-  constructor() {
-    effect(() => {
-      const category = this.category_id!();
-      if (category) {
-        this.getProducts(category);
-      } else this.getProducts();
+  constructor(private injector: Injector) {}
+
+  ngOnInit() {}
+
+  ngOnChanges() {
+    runInInjectionContext(this.injector, () => {
+      this.products = (
+        this.category_id
+          ? toSignal(this.getProducts(this.category_id()))
+          : toSignal(this.getProducts())
+      ) as Signal<Product[]>;
     });
   }
 
-  ngOnInit() {
-    this.getCategories();
+  private getProducts(categoryId?: string): Observable<Product[]> {
+    console.log(categoryId);
+    return this.productService.getProducts(categoryId);
   }
 
-  private getProducts(categoryId?: string) {
-    this.productService.getProducts(categoryId).subscribe({
-      next: (products) => {
-        this.products.set(this.sanitizeService.fixFormat(products));
-      },
-      error: () => {},
-    });
-  }
-
-  private getCategories() {
-    this.categoryService.getCategories().subscribe({
-      next: (categories) => {
-        this.categories.set(categories);
-      },
-      error: () => {},
-    });
+  private getCategories(): Observable<Category[]> {
+    return this.categoryService.getCategories();
   }
 
   addToCart(product: Product) {
